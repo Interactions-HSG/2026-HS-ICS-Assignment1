@@ -13,11 +13,13 @@
 
 ## 0. Team & process
 
+You work in your assigned group of two. Both names go here, whoever created the repository.
+
 | Field | Your entry |
 | --- | --- |
+| Group number | TODO: |
 | Team member 1 (last name, first name) | TODO: |
-| Team member 2 (last name, first name) | TODO: (write `n/a` if you worked alone) |
-| Team member 3 (last name, first name) | TODO: (write `n/a` if you worked alone) |
+| Team member 2 (last name, first name) | TODO: |
 
 ### 0.1 Roles
 
@@ -33,7 +35,7 @@ TODO: replace this line with your answer.
 
 ### 0.3 Time spent
 
-Roughly how many hours did this assignment take your team in total?
+Roughly how many hours did this assignment take the two of you in total?
 
 TODO: replace this line with your answer.
 
@@ -307,5 +309,5 @@ TODO: replace this line with your answer.
 - [ ] `led_blink.c` modified and it compiles (`make led_blink`)
 - [ ] `led_fade.c` done, or section 5.1 says `not attempted`
 - [ ] Everything **committed and pushed**
-- [ ] `lukabekavac` **and** `Karimkh31` added as collaborators on your private repo
-- [ ] Repository URL submitted on Canvas
+- [ ] Your partner **and** `lukabekavac` **and** `Karimkh31` added as collaborators
+- [ ] **One** of you submitted the repository URL on Canvas (not both)

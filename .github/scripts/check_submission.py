@@ -15,6 +15,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+TEMPLATE_REPO = "2026-HS-ICS-Assignment1"
 
 # `TODO:` at the start of a line or at the start of a markdown table cell,
 # ignoring any occurrence inside an inline `code span`.
@@ -74,11 +75,20 @@ def section_body(text: str, heading_substring: str) -> str:
     return "\n".join(out)
 
 
-def check_report(r: Report) -> None:
+def table_value(section: str, field: str) -> str | None:
+    """Value cell of a `| field | value |` row, or None if it is still blank."""
+    m = re.search(r"^\|\s*" + re.escape(field) + r"[^|]*\|([^|]*)\|", section, re.M)
+    if not m:
+        return None
+    value = m.group(1).strip()
+    return None if not value or value.startswith("TODO:") else value
+
+
+def check_report(r: Report) -> str | None:
     path = ROOT / "REPORT.md"
     if not path.exists():
         r.fail("REPORT.md", "File is missing -- it must not be renamed or deleted.")
-        return
+        return None
 
     text = path.read_text(encoding="utf-8")
     todos = find_todos(text)
@@ -96,8 +106,47 @@ def check_report(r: Report) -> None:
         )
 
     team = section_body(text, "Team & process")
-    if team and re.search(r"\|\s*Team member 1[^|]*\|\s*(TODO:)?\s*\|", team):
-        r.fail("REPORT.md", "Team member 1 is empty -- fill in at least one name.")
+    group = table_value(team, "Group number")
+    for field in ("Team member 1", "Team member 2"):
+        if not table_value(team, field):
+            r.fail(
+                "REPORT.md",
+                f"**{field}** is empty. You work in a group of two, so both names belong in "
+                "the table at the top -- also if your partner did not touch the repository.",
+            )
+    if not group:
+        r.fail("REPORT.md", "**Group number** is empty. Use the number from Canvas.")
+    elif not re.fullmatch(r"\d+", group):
+        r.fail(
+            "REPORT.md",
+            f"**Group number** is `{group}` -- please write digits only, e.g. `7`.",
+        )
+    return group
+
+
+def check_repo_name(r: Report, group: str | None) -> None:
+    """The repo name is how we match a hand-in to a group, so it has to be right."""
+    slug = os.environ.get("GITHUB_REPOSITORY", "")
+    if not slug:
+        return  # running locally; nothing to check against
+    name = slug.split("/")[-1]
+    if name == TEMPLATE_REPO:
+        return  # this is the template itself, not a hand-in
+
+    m = re.search(r"group0*(\d+)", name, re.I)
+    if not m:
+        r.fail(
+            "repository name",
+            f"This repository is called `{name}`. It has to be named "
+            "`ics-a1-group<your number>` (digits only, e.g. `ics-a1-group7`) so we can match "
+            "it to your group.\n\n  Rename it under **Settings → General → Repository name**. "
+            "Links to the old name keep working, so this is safe to do at any time.",
+        )
+    elif group and m.group(1) != group.lstrip("0"):
+        r.note(
+            f"The repository is named `{name}` but `REPORT.md` says group **{group}**. "
+            "One of the two is wrong -- please make them agree."
+        )
 
 
 def check_screenshot(r: Report) -> None:
@@ -157,7 +206,8 @@ def check_code(r: Report) -> None:
 
 def main() -> int:
     r = Report()
-    check_report(r)
+    group = check_report(r)
+    check_repo_name(r, group)
     check_screenshot(r)
     check_code(r)
 
@@ -167,8 +217,9 @@ def main() -> int:
             "✅ **Your hand-in looks complete.**", "",
             "This only checks that nothing is *missing* — it says nothing about whether "
             "your answers are right.", "",
-            "Before the deadline: make sure `lukabekavac` and `Karimkh31` are "
-            "collaborators on this repository, and submit your repository URL on Canvas.",
+            "Before the deadline: make sure your partner, `lukabekavac` and `Karimkh31` "
+            "are collaborators here, and that **one** of you submits the repository URL "
+            "on Canvas.",
         ]
     else:
         lines += [f"❌ **{len(r.problems)} thing(s) still to do.**", ""]

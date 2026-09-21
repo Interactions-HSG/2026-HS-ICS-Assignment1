@@ -10,6 +10,9 @@ hand in*.
 **You need:** a Raspberry Pi 400 PC-Kit, a 330 Ω resistor, an LED, a breadboard, and two
 male-to-female jumper wires.
 
+**You work in your assigned group of two.** You share **one** repository: one of you creates
+it, the other joins as a collaborator. Only one of you hands in.
+
 **Never used Git or GitHub?** That's expected. Follow the six steps below in order and you
 will be fine. It takes about 10 minutes.
 
@@ -17,10 +20,10 @@ will be fine. It takes about 10 minutes.
 
 ---
 
-## Step 1 · Make your own copy
+## Step 1 · One of you makes the copy
 
-> Already looking at your *own* repository (the name at the top is yours, not
-> `Interactions-HSG`)? Then this step is done — skip to Step 2.
+> **Decide who does this — only one of you.** If your partner already created the repository,
+> skip to Step 3 and ask them to add you.
 
 On the [assignment repository](https://github.com/Interactions-HSG/2026-HS-ICS-Assignment1),
 click the green **`Use this template`** → **`Create a new repository`**.
@@ -29,11 +32,15 @@ Then:
 
 | Setting | What to choose |
 | --- | --- |
-| Repository name | `ics-a1-yourlastname` (e.g. `ics-a1-mueller`) |
+| Repository name | `ics-a1-group<your number>`, e.g. **`ics-a1-group7`** |
 | Visibility | **Private** ← important |
 
-Click **Create repository**. You now have your own copy at
-`github.com/your-username/ics-a1-yourlastname`.
+Your **group number** is the one from the group assignment on Canvas. Use digits only, no
+spaces: `ics-a1-group7`, not `ics-a1-Group 7` or `ics-a1-gruppe7`. We match repositories to
+groups by that name, so getting it right saves everyone time.
+
+Click **Create repository**. Your group now has its repository at
+`github.com/your-username/ics-a1-group7`.
 
 > **Why not "Fork"?**
 > You may have seen a **Fork** button on GitHub. Forking also copies a project, but a fork of
@@ -41,21 +48,23 @@ Click **Create repository**. You now have your own copy at
 > your Bandit passwords. **Use this template** gives you a private copy instead. So: template,
 > not fork.
 
-## Step 2 · Add us as collaborators
+## Step 2 · Add your partner and us
 
-Your repository is private, which means *we cannot see it either*. In **your new repository**:
+The repository is private, so right now *nobody* can see it — not your partner, not us. Whoever
+created it goes to:
 
-**Settings** → **Collaborators** → **Add people** → add both:
+**Settings** → **Collaborators** → **Add people**, and adds **three** people:
 
 ```
+<your partner's GitHub username>
 lukabekavac
 Karimkh31
 ```
 
-If you work in a team, add your team-mates here too, so everyone can edit.
+Your partner then gets an email invitation and has to **accept** it before they can push.
 
-> ⚠️ **If you skip this step we cannot open your repository and cannot grade you.** Do it now,
-> not on the deadline.
+> ⚠️ **Forget this and we cannot open your repository, so we cannot grade you.** Do it now, not
+> on the deadline.
 
 ## Step 3 · Open your repository
 
@@ -80,12 +89,12 @@ The first start takes 2–3 minutes while the compiler downloads. After that it 
 Install [Git](https://git-scm.com/downloads) if you do not have it, then in a terminal:
 
 ```console
-$ git clone https://github.com/your-username/ics-a1-yourlastname.git
-$ cd ics-a1-yourlastname
+$ git clone https://github.com/your-username/ics-a1-group7.git
+$ cd ics-a1-group7
 ```
 
-`clone` means "download my repository onto this computer, and remember where it came from".
-Use the URL of **your** repository, not the one you are reading now.
+`clone` means "download this repository onto my computer, and remember where it came from".
+Use the URL of **your group's** repository, not the one you are reading now.
 
 ## Step 4 · Answer the questions
 
@@ -114,6 +123,11 @@ $ git push                         # upload it to GitHub
 Do this often — after every task, not once at the end. It costs 10 seconds and it means a
 crashed browser cannot eat your evening.
 
+> **Working with your partner:** you share one repository, so run `git pull` (or click
+> **Sync Changes**) *before* you start working, to get their latest changes. If you both edit
+> the same lines at the same time, Git will ask you to sort out the conflict — easiest to avoid
+> by agreeing who does which task.
+
 **Check it worked:** open your repository on github.com and look at `REPORT.md`. If your
 answers are there, you are safe.
 
@@ -127,13 +141,14 @@ It checks **completeness, not correctness**. Green does not mean your answers ar
 
 ## Step 6 · Hand in
 
-1. No `TODO:` lines left in `REPORT.md`
+1. No `TODO:` lines left in `REPORT.md` — including your **group number** and **both names**
+   at the top
 2. Everything **pushed** (Step 5)
-3. `lukabekavac` and `Karimkh31` added as collaborators (Step 2)
-4. On Canvas, submit **only the URL of your repository**:
-   `https://github.com/your-username/ics-a1-yourlastname`
+3. Your partner, `lukabekavac` and `Karimkh31` added as collaborators (Step 2)
+4. **One of you** — not both — submits **only the repository URL** on Canvas:
+   `https://github.com/your-username/ics-a1-group7`
 
-We grade whatever is on your `main` branch at the deadline.
+We grade whatever is on your `main` branch at the deadline. Both of you get the same mark.
 
 ---
 
