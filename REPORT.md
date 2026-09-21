@@ -176,7 +176,7 @@ TODO: replace this line with your answer.
 ## 2. Toolchain Setup (1pt)
 
 Install the ARM GNU toolchain **13.3.Rel1** on **your own machine** (see
-[`README.md`](README.md#2-set-up-the-toolchain-on-your-own-machine)).
+[`docs/TOOLCHAIN.md`](docs/TOOLCHAIN.md)).
 
 > ⚠️ This task must be done on your own computer, not in the Codespace. The Codespace
 > already has the toolchain, so a screenshot taken there does not demonstrate anything —
@@ -263,9 +263,11 @@ TODO: replace this line with your answer.
 
 ## 4. Building your own Digital Circuit and Blinking an LED (4pt)
 
-Wire an LED (with the 330 Ω resistor in series!) to **GPIO 16 — physical pin 36**, as shown in
-the wiring diagram in the assignment sheet. Then modify **[`led_blink.c`](led_blink.c)** so it
-blinks *that* LED instead of the power LED.
+Wire an LED (with the 330 Ω resistor in series!) to **GPIO 16 — physical pin 36**, like this:
+
+![wiring diagram](docs/figures/wiring.png)
+
+Then modify **[`led_blink.c`](led_blink.c)** so it blinks *that* LED instead of the power LED.
 
 Your code is the hand-in for this task. Use this section to explain it.
 
@@ -305,5 +307,5 @@ TODO: replace this line with your answer.
 - [ ] `led_blink.c` modified and it compiles (`make led_blink`)
 - [ ] `led_fade.c` done, or section 5.1 says `not attempted`
 - [ ] Everything **committed and pushed**
-- [ ] Grader account added as a collaborator on your private repo
+- [ ] `lukabekavac` **and** `Karimkh31` added as collaborators on your private repo
 - [ ] Repository URL submitted on Canvas

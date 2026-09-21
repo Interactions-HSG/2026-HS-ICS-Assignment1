@@ -106,7 +106,8 @@ def check_screenshot(r: Report) -> None:
         r.fail(
             "screenshots/t1.png",
             "Task 2 screenshot is missing. Save your local "
-            "`arm-none-eabi-objcopy --version` output as `screenshots/t1.png`.",
+            "`arm-none-eabi-objcopy --version` output as `screenshots/t1.png` "
+            "(see docs/TOOLCHAIN.md).",
         )
         return
     if path.read_bytes()[:8] != b"\x89PNG\r\n\x1a\n":
@@ -166,8 +167,8 @@ def main() -> int:
             "✅ **Your hand-in looks complete.**", "",
             "This only checks that nothing is *missing* — it says nothing about whether "
             "your answers are right.", "",
-            "Remember to add the grader account as a collaborator and submit your "
-            "repository URL on Canvas.",
+            "Before the deadline: make sure `lukabekavac` and `Karimkh31` are "
+            "collaborators on this repository, and submit your repository URL on Canvas.",
         ]
     else:
         lines += [f"❌ **{len(r.problems)} thing(s) still to do.**", ""]
