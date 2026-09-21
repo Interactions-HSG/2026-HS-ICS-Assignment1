@@ -1,0 +1,13 @@
+# Build artifacts -- regenerate these with `make`
+build/
+kernel7l.img
+*.elf
+*.o
+
+# ...but the Pi's firmware blob is a real, tracked file
+!boot/start4.elf
+
+# OS clutter
+.DS_Store
+Thumbs.db
+desktop.ini

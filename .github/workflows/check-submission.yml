@@ -1,0 +1,37 @@
+name: Submission check
+
+# Runs on every push so you get feedback while you work, not only at the deadline.
+# It never grades your answers -- it only tells you what is still missing or broken.
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  compiles:
+    name: Code compiles
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Ubuntu's arm-none-eabi packages are a few point releases away from the
+      # 13.3.Rel1 you install locally. That is fine for a "does it build" check.
+      - name: Install ARM cross-compiler
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends \
+            gcc-arm-none-eabi binutils-arm-none-eabi
+          arm-none-eabi-gcc --version | head -1
+
+      - name: Build all programs
+        run: make all
+
+      - name: Show resulting kernel images
+        run: ls -l build/
+
+  complete:
+    name: Hand-in is complete
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 .github/scripts/check_submission.py
