@@ -125,7 +125,11 @@ def check_report(r: Report) -> str | None:
 
 
 def check_repo_name(r: Report, group: str | None) -> None:
-    """The repo name is how we match a hand-in to a group, so it has to be right."""
+    """The repo name is how we match a hand-in to a group.
+
+    This only ever warns: a freshly created repository is allowed to be red for the
+    right reasons (unanswered questions), not for its name.
+    """
     slug = os.environ.get("GITHUB_REPOSITORY", "")
     if not slug:
         return  # running locally; nothing to check against
@@ -135,12 +139,11 @@ def check_repo_name(r: Report, group: str | None) -> None:
 
     m = re.search(r"group0*(\d+)", name, re.I)
     if not m:
-        r.fail(
-            "repository name",
-            f"This repository is called `{name}`. It has to be named "
-            "`ics-a1-group<your number>` (digits only, e.g. `ics-a1-group7`) so we can match "
-            "it to your group.\n\n  Rename it under **Settings → General → Repository name**. "
-            "Links to the old name keep working, so this is safe to do at any time.",
+        r.note(
+            f"⚠️ **Please rename this repository.** It is called `{name}`, but it has to be "
+            "`ics-a1-group<your number>` — digits only, e.g. `ics-a1-group7` — so we can match "
+            "it to your group. Do it under **Settings → General → Repository name**; links to "
+            "the old name keep working, so it is safe to rename at any time."
         )
     elif group and m.group(1) != group.lstrip("0"):
         r.note(
@@ -227,7 +230,8 @@ def main() -> int:
             lines += [f"### `{what}`", "", detail, ""]
 
     if r.notes:
-        lines += ["---", "", "### Notes", ""] + [f"- {n}" for n in r.notes]
+        # Leading "" matters: a `---` directly under text makes it a Markdown heading.
+        lines += ["", "---", "", "### Notes", ""] + [f"- {n}" for n in r.notes]
 
     out = "\n".join(lines)
     print(out)

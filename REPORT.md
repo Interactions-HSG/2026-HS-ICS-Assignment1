@@ -267,7 +267,7 @@ TODO: replace this line with your answer.
 
 Wire an LED (with the 330 Ω resistor in series!) to **GPIO 16 — physical pin 36**, like this:
 
-![wiring diagram](docs/figures/wiring.png)
+![wiring diagram](docs/wiring.png)
 
 Then modify **[`led_blink.c`](led_blink.c)** so it blinks *that* LED instead of the power LED.
 
