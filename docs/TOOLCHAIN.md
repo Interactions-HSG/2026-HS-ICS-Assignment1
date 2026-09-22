@@ -37,8 +37,8 @@ If you miss it, run the installer again.
 
 Run the `.pkg`. Then tell your terminal where the tools are:
 
-```console
-% echo 'export PATH=/Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin:$PATH' | tee -a ~/.zlogin && source ~/.zlogin
+```bash
+echo 'export PATH=/Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin:$PATH' | tee -a ~/.zlogin && source ~/.zlogin
 ```
 
 This appends one line to your Zsh configuration file, so the setting survives a restart.
@@ -46,9 +46,11 @@ This appends one line to your Zsh configuration file, so the setting survives a 
 ### Check that it worked
 
 ```console
-% arm-none-eabi-gcc --version
-% arm-none-eabi-objcopy --version
+arm-none-eabi-gcc --version
+arm-none-eabi-objcopy --version
 ```
+
+
 
 On **Windows** the tools carry the version in their name:
 `arm-none-eabi-gcc-13.3.1.exe --version`.
@@ -78,9 +80,9 @@ and `fixup4.dat` are the minimal firmware it loads. Then it looks for a file cal
 ### The short way
 
 ```console
-$ make power_blink     # Task 3 -- blinks the Pi's own power LED
-$ make led_blink       # Task 4 -- blinks your LED on GPIO 16
-$ make led_fade        # Bonus  -- fades your LED
+make power_blink     # Task 3 -- blinks the Pi's own power LED
+make led_blink       # Task 4 -- blinks your LED on GPIO 16
+make led_fade        # Bonus  -- fades your LED
 ```
 
 Each produces **`kernel7l.img`** in the main folder of your repository. Copy that one file to
@@ -92,7 +94,7 @@ on purpose.
 On Windows, if `make` cannot find the compiler:
 
 ```console
-$ make led_blink SUFFIX=-13.3.1.exe
+make led_blink SUFFIX=-13.3.1.exe
 ```
 
 Other targets: `make all` builds all three into `build/` without touching `kernel7l.img`;
@@ -104,7 +106,7 @@ Other targets: `make all` builds all three into `build/` without touching `kerne
 Broadcom **BCM2711** chip:
 
 ```console
-$ arm-none-eabi-gcc -g -nostartfiles -mfloat-abi=hard -O0 -DRPI4 \
+arm-none-eabi-gcc -g -nostartfiles -mfloat-abi=hard -O0 -DRPI4 \
     -mfpu=crypto-neon-fp-armv8 -march=armv8-a+crc -mcpu=cortex-a72 \
     power_blink.c -o kernel.elf
 ```
@@ -120,7 +122,7 @@ Roughly what those flags say: build for a 32-bit Cortex-A72 with hardware floati
 Second, strip away the ELF wrapper and leave the raw machine code the Pi's bootloader expects:
 
 ```console
-$ arm-none-eabi-objcopy kernel.elf -O binary kernel7l.img
+arm-none-eabi-objcopy kernel.elf -O binary kernel7l.img
 ```
 
 For Task 4 and the bonus, swap `power_blink.c` for `led_blink.c` or `led_fade.c`. Nothing else
